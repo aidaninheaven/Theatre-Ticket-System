@@ -1,0 +1,64 @@
+#define seating rows
+row8 = ["10$"] * 9
+row7 = ["10$"] * 9
+row6 = ["10$"] * 9
+row5 = ["20$"] * 9
+row4 = ["20$"] * 9
+row3 = ["30$"] * 9
+row2 = ["40$"] * 9
+row1 = ["50$"] * 9
+
+#store rows in a list (index 0 is unused for quality of life)
+rows = [None, row1, row2, row3, row4, row5, row6, row7, row8]
+
+#function to display the seating chart
+def theatreDisplay():
+    for i in range(1, 9):
+        print(f"Row {i}: {rows[i]}")
+
+#function to let the user pick a seat or buy all seats
+def pickSeat(): 
+    while True:
+        theatreDisplay()
+
+        rowChoice = input("Pick a row between 1-8, or type 'all' to buy all seats, or 'exit' to quit: ")
+
+        #exit if the user types exit"
+        if rowChoice.lower() == "exit":
+            print("Exiting the system. Goodbye!")
+            break
+
+        #buys out the whole theatre if "all" is entered
+        if rowChoice.lower() == "all":
+            for row in range(1, 9):
+                for seat in range(9):
+                    rows[row][seat] = "X"
+            print("Seats are all sold out, have a good one!")
+            theatreDisplay()  
+            break
+
+        #checks if the rowChoice is a valid number between 1-8
+        if not rowChoice.isdigit() or not (1 <= int(rowChoice) <= 8):
+            print("Row does not exist. Please choose a valid row between 1-8.")
+            continue  #continue asking the user for valid input
+        rowChoice = int(rowChoice)
+
+        seatChoice = input("Enter your seat (1-9): ")
+
+        #checks if the seatChoice is a valid number between 1-9
+        if not seatChoice.isdigit() or not (1 <= int(seatChoice) <= 9): 
+            print("Seat does not exist. Please choose a valid seat between 1-9.")
+            continue  #continue asking the user for valid input
+        seatChoice = int(seatChoice)
+
+        seatIndex = seatChoice - 1  #converts to zero-based index
+
+        #check if the seat is already taken
+        if rows[rowChoice][seatIndex] == "X":
+            print("This seat is taken.")
+        else:
+            rows[rowChoice][seatIndex] = "X"  #marks seat as taken
+            print(f"Seat {seatChoice} in Row {rowChoice} has been booked. Have a nice day!")
+
+
+pickSeat()
