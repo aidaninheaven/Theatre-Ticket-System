@@ -14,8 +14,9 @@ rows = [None, row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
 #function to display the seating chart
 def theatreDisplay():
-    for i in range(1, 10):
+    for i in range(9, 0, -1):
         print(f"Row {i}: {rows[i]}")
+    print("\n")
         
 
 #function to let the user pick a seat or buy all seats
